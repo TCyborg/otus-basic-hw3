@@ -43,6 +43,30 @@ int main(int argc, char** argv) {
 			max_value = std::stoi(argv[2]);
 			std::cout << "The '-parameter' value = " << max_value << std::endl;
 		}
+		if (arg1_value == "-level") {
+			std::cout << "-parameter level was detected!" << std::endl;
+
+			// We've detected the '-parameter' argument. And we extect that after this argument there is a value:
+			if (argc < 3) {
+				std::cout << "Wrong usage! The argument '-parameter' requires some value!" << std::endl;
+				return -1;
+			}
+			int level;
+			// We need to parse the string to the int value
+			level = std::stoi(argv[2]);
+			if(level == 1){
+				max_value = 10;
+			}
+			if(level == 2){
+				max_value = 50;
+			}
+			if(level == 3){
+				max_value = 100;
+			}
+			std::cout << "The '-level' value = " << level << std::endl;
+		}
+		
+
 		if (arg1_value == "-table") {
 			print_leaderboard();
 			return 0;
