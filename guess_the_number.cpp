@@ -5,6 +5,7 @@
 #include <ctime>
 #include <fstream>
 #include <string>
+#include <map>
 
 const std::string high_scores_filename = "high_scores.txt";
 
@@ -104,6 +105,7 @@ const int generate_random_value(const int max_value){
 int print_leaderboard()
 	// Read the high score file and print all results
 {
+	std::map<std::string, int> leaderboard_map;
 	std::ifstream in_file{high_scores_filename};
 	if (!in_file.is_open()) {
 		std::cout << "Failed to open file for read: " << high_scores_filename << "!" << std::endl;
@@ -125,9 +127,21 @@ int print_leaderboard()
 		if (in_file.fail()) {
 			break;
 		}
+		if (auto search = leaderboard_map.find(username); search!=leaderboard_map.end()){
+			if (search->second > high_score){
+				leaderboard_map[username] = high_score;
+			}
+		}
+		else{
+			leaderboard_map.insert({username, high_score});
+		}
 
 		// Print the information to the screen
-		std::cout << username << '\t' << high_score << std::endl;
+		//std::cout << username << '\t' << high_score << std::endl;
 	}
-return 0;
+	//std::cout << std::endl;
+	for (const auto& [username, high_score] : leaderboard_map){
+		std::cout << username << '\t' << high_score <<std::endl;
+	}
+	return 0;
 }
