@@ -129,4 +129,5 @@ int print_leaderboard()
 		// Print the information to the screen
 		std::cout << username << '\t' << high_score << std::endl;
 	}
+return 0;
 }
